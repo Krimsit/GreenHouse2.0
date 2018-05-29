@@ -1,0 +1,26 @@
+>> - Click
+>~ - potentiometer
+<< - Indicator
+<<< - Show Text on display
+
+1. Welcome (Show)(nocycle)
+2. Sensor reading...(BackEnd)(cycle)
+3. Show States sensors and norms' sensors (Show)(cycle)
+	3.1. Blue>> <<< ...
+	3.2. Blue>> <<< ...
+	3.3. Blue>> <<< ...
+	3.4. Blue>> <<< ...
+	3.5. Blue>> <<< ...
+4. Show Norms and Change norms(Show)(cycle)
+	4.1. Yellow>> + >~ => <<<{
+		TempInSide: 24
+		Norm:       (30)(~)
+	}
+	4.1. Yellow>> + >~ => <<<{
+		Lighting:    600
+		Norm:       (500)(~)
+	}
+	4.1. Yellow>> + >~ => <<<{
+		Mo-reOfSolil: 30
+		Norm:        (30)(~)
+	}
