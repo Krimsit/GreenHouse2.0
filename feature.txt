@@ -3,7 +3,7 @@
 << - Indicator
 <<< - Show Text on display
 
-1. Welcome (Show)(nocycle)
+1. Welcome (Show)(nocycle) 
 2. Sensor reading...(BackEnd)(cycle)
 3. Show States sensors and norms' sensors (Show)(cycle)
 	3.1. Blue>> <<< ...
@@ -24,3 +24,28 @@
 		Mo-reOfSolil: 30
 		Norm:        (30)(~)
 	}
+
+
+1.	Welcome
+2.	GreenHouse 2.0
+delay(3500)
+3.	Author: Шенягин Д.
+4.	Co-Author: Субботин А.
+delay(3500)
+5.	Scientific director:
+	Краев Н.В.
+
+6.	TempOutSide: ...
+	NORM: ...  
+BlueClick!
+7.	TempInSide: ...
+	NORM: ...
+BlueClick!
+8.	Lighting: ...
+	NORM: ...
+BlueClick!
+9.	AirHumidity: ...
+	NORM: ...
+BlueClick!
+10.	Mo-reOfSoil: ...
+	NORM: ...
