@@ -7,23 +7,28 @@ void Welcome(){
   lcd.print("GreenHouse 2.0");
 
   delay(3500);
+  lcd.clear();
 
   //  Author
   lcd.setCursor(0, 0);
   lcd.print("Author: ");
-  lcd.setCursor(6, 1);
-  lcd.print("Шенягин Д.");
-  delay(2000);
   lcd.setCursor(0, 1);
+  lcd.print("Shenyagin D.");
+
+  delay(2000);
+  lcd.clear();
+
+  lcd.setCursor(0, 0);
   lcd.print("Co-Author: ");
-  lcd.setCursor(5, 1);
-  lcd.print("Субботин А.");
+  lcd.setCursor(0, 1);
+  lcd.print("Subbotin A.");
 
   delay(3500);
-
+  lcd.clear();
+  
   //  Scientific director
   lcd.setCursor(0, 0);
-  lcd.print("Scientific director: ");
-  lcd.setCursor(6, 1);
-  lcd.print("Краев Н.В.");
+  lcd.print("Scientific dir.:");
+  lcd.setCursor(0, 1);
+  lcd.print("Kraev N.V.");
 }
