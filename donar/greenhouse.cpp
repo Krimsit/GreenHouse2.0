@@ -32,14 +32,7 @@ void setup()
 
 void loop() 
 {
-  //Считываем влажность
-  float h = dht.readHumidity();
-  // Считываем температуру
-  float t = dht.readTemperature();
-  //расчет освещенности
-  int x = analogRead(ldr);
-  //расчет влажность почвы
-  soilSensorValue = analogRead(soilSensorPin);
+
 
  
 }
