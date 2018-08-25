@@ -4,7 +4,7 @@
 <<< - Show Text on display
 
 1. Welcome (Show)(nocycle)
-1.2 Check System GH2 and indicators light
+1.2 Check System GH and indicators light
 2. Sensor reading...(BackEnd)(cycle)
 	2.1 TempOutSide
 	2.2 TempInSide
@@ -32,26 +32,3 @@
 	}
 
 
-1.	Welcome
-2.	GreenHouse 2.0
-delay(3500)
-3.	Author: Шенягин Д.
-4.	Co-Author: Субботин А.
-delay(3500)
-5.	Scientific director:
-	Краев Н.В.
-
-6.	TempOutSide: ...
-	NORM: ...  
-BlueClick!
-7.	TempInSide: ...
-	NORM: ...
-BlueClick!
-8.	Lighting: ...
-	NORM: ...
-BlueClick!
-9.	AirHumidity: ...
-	NORM: ...
-BlueClick!
-10.	Mo-reOfSoil: ...
-	NORM: ...
