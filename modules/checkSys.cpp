@@ -4,20 +4,50 @@
 		2. Логи
 		3. Вывод ошибок
 */
-void grindon(int pin){
+void errorShow(int pin){
 	digitalWrite(pin, HIGH);
-}
-void grindoff(int pin){
+	delay(1000);
 	digitalWrite(pin, LOW);
 }
-void CheckSys(int pinGrInd, int pinRedInd){
-	// пока здесь нет условия, но оно вскоре повится(но это не точно), а пока здесь просто будет
-	// будет мигать, а потом просто гореть зеленый индикатор)
-	for(int i = 0; i < 5; i++){
-		grindon(pinGrInd);
-		delay(500);
-		grindoff(pinGrInd);
-		delay(500);
+void normShow(int pin){
+	digitalWrite(pin, HIGH);
+	delay(500);
+	digitalWrite(pin, LOW);
+}
+bool SysCheck(int pinGrInd, int pinRedInd, int Pins[4]){
+	bool err = false;
+	for(int i = 0; i < 4;i++){
+		if(i == 3){
+			int errValueTemp = 0;
+			int errValueHum = 0;
+
+			int valueTemp = Pins[i].readTemperature();
+			int valueHum = Pins[i].readHumidity();
+			if(valueTemp == errValueTemp || valueHum == errValueHum){
+				err = !err;
+				Serial.print("error: ", i);
+				break;
+			}
+		}
+		else{
+			int value = analogRead(Pins[i]);
+			if(value == 0 || value == 1024){
+				err = !err;
+				Serial.print("error: ", i);
+				break;
+			}
+		}
 	}
-	grindon(pinGrInd);
+
+
+	if(err){
+		errorShow(pinRedInd);
+		return false;
+	}
+	else{
+		normShow(pinGrInd);
+		delay(100);
+		normShow(pinGrInd);
+		return true;
+	}
 }

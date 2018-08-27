@@ -1,11 +1,14 @@
 /*
 	0.1. Reaquired libs
 */
-// Will replace lib on lib@i2c
+// Will replace lib on lib@i2c (!)
 // work with display on i2c
 #include <LiquidCrystal.h>
 // work with DHT (датчик влажности и температуры)
 #include "DHT.h"
+// либа для управлением энергонезависимой памятью
+// find and install (!)
+#include <EEPROM.h>
 
 //-------------------------------------------------------------------------------
 
@@ -42,7 +45,7 @@ const int waterPin = 4;					//Пин рэле с помпой
 
 // Indicators
 const int indRedPin  = 7;				//Пин красного индикатора
-const int indGreePin = 8;				//Пин красного индикатора
+const int indGreenPin = 8;				//Пин красного индикатора
 
 // krutilra(potentiometer)
 const int potPin = 0;						//Пин потециометра(крутилки)(A0)
@@ -63,11 +66,47 @@ const int potPin = 0;						//Пин потециометра(крутилки)(A
 */
 #include "modules/checkSys.cpp"
 
+/*
+	Functions
+*/
+void indRedOn(){
+	digitalWrite(indRedPin, HIGH);
+}
+void indRedOff(){
+	digitalWrite(indRedPin, LOW);
+}
+
+void indGreenOn(){
+	digitalWrite(indGreenPin, HIGH);
+}
+void indGreenOff(){
+	digitalWrite(indGreenPin, LOW);
+}
+// Main function
+void main(){
+	int YValue = digitalRead(YbuttonPin);
+	int BValue = digitalRead(BbuttonPin);
+	if(BValue){
+		// Settings
+	}
+	else{
+		if(YValue){
+			// Change info on Display
+		}
+		else{
+			// Cycle info on Display slowly
+		}
+	}
+}
+
+
 // ------------------------------------------------------------------------------
 
 /*
 	Main part programm
 */
+bool ERROR = false;
+
 void setup(){
 	// Init
 	// begining Console on 9600 port
@@ -84,10 +123,25 @@ void setup(){
 
   // main run functions
   Welcome();
-  SysCheck();
+  int arrPinsSensors[4] = {ldr, tempInPin, soilSensorPin, dht}
+  if(SysCheck(indGreenPin, indRedPin, arrPinsSensors)){
+  	// Next code
+  	indGreenOn();
+  } else{
+  	ERROR = true;
+	}
+
 }
 
 int ModState = 0;
 void loop(){
-	int buttonState = digitalRead(buttonPin);
+	if(ERROR){
+		indRedOn();
+		delay(500);
+		indRedOff();
+	}else{
+		main();
+	}
+
+	// int buttonState = digitalRead(buttonPin);
 }
