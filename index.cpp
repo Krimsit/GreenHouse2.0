@@ -1,147 +1,104 @@
-/*
-	0.1. Reaquired libs
-*/
-// Will replace lib on lib@i2c (!)
-// work with display on i2c
-#include <LiquidCrystal.h>
-// work with DHT (датчик влажности и температуры)
-#include "DHT.h"
-// либа для управлением энергонезависимой памятью
-// find and install (!)
-#include <EEPROM.h>
+#include <DHT.h>
+#include <Wire.h>
+#include <WireKinetis.h>
+#include <LiquidCrystal_SR.h>
 
-//-------------------------------------------------------------------------------
 
-/*
-	0.2. Init vars for work with sensors and indicators
-*/
+LiquidCrystal_SR lcd(6, 5, 9);
 
-// Инициализируем объект-экран, передаём использованные 
-// для подключения контакты на Arduino в порядке:
-// RS, E, DB4, DB5, DB6, DB7
-LiquidCrystal lcd(4, 5, 10, 11, 12, 13);
-
-#define DHTPIN 3 								// номер пина, к которому подсоединен датчик
+#define DHTPIN 10 // номер пина, к которому подсоединен датчик
 DHT dht(DHTPIN, DHT11);
 
-// Pins
+//Реле
+int RelayLight = 4;
+int RelayTemp = 3;
+int RelayPompa = 2;
 
-const int ldr = 0; 							//пин фоторезистора
+//Экран
+int Idr = 1;
 
-// Влажность почвы
-const int soilSensorPin   = 1;	//Значение пина датчика влажности почвы
-const int soilSensorValue = 0;	//Временне значение датчика вложносит почвы
+const int MoistureOfSoilPin = 0;  //Значение пина датчика влажности почвы
+int soilSensorValue = 0;  //Временное значение датчика вложносит почвы
 
-const int tempInPin = 10;				//Пин датчика температуры внутри теплицы
+//Кнопки
+int buttonPinInfo = 11;
+int buttonPinMode = 8;
 
-// Кнопки
-const int YbuttonPin = 9;				// номер пина желтой кнопки
-const int BbuttonPin = 13; 			// номер пина голобой кнопки
+int ind1 = 13;
 
-// relaies
-const int tempPin  = 2;					//Пин рэле с лампочкой
-const int lightPin = 3;					//Пин рэле с светодиодной панелью
-const int waterPin = 4;					//Пин рэле с помпой
+#include <greenhouse.h>
 
-// Indicators
-const int indRedPin  = 7;				//Пин красного индикатора
-const int indGreenPin = 8;				//Пин красного индикатора
+#include <OneButton.h>
 
-// krutilra(potentiometer)
-const int potPin = 0;						//Пин потециометра(крутилки)(A0)
+OneButton Bbutton(buttonPinInfo, true);
 
-
-// ------------------------------------------------------------------------------
-
-// Copy-past next down includes files (!)
-/*
-	1.0 Welcome block (main function)
-*/
-
-// Welcome product
-#include "modules/Welcome.cpp"
-
-/*
-	1.1 Chack Sys (Pre-function)
-*/
-#include "modules/checkSys.cpp"
-
-/*
-	Functions
-*/
-void indRedOn(){
-	digitalWrite(indRedPin, HIGH);
-}
-void indRedOff(){
-	digitalWrite(indRedPin, LOW);
-}
-
-void indGreenOn(){
-	digitalWrite(indGreenPin, HIGH);
-}
-void indGreenOff(){
-	digitalWrite(indGreenPin, LOW);
-}
-// Main function
-void main(){
-	int YValue = digitalRead(YbuttonPin);
-	int BValue = digitalRead(BbuttonPin);
-	if(BValue){
-		// Settings
-	}
-	else{
-		if(YValue){
-			// Change info on Display
-		}
-		else{
-			// Cycle info on Display slowly
-		}
-	}
-}
-
-
-// ------------------------------------------------------------------------------
-
-/*
-	Main part programm
-*/
-bool ERROR = false;
 
 void setup(){
-	// Init
-	// begining Console on 9600 port
-	Serial.begin(9600);
+  Serial.begin(9600);
+  
+  lcd.begin(16,2);               // Initializing LCD
+  lcd.home ();
+  
+  dht.begin();
+//  Pin MOds to relay
+  pinMode(RelayLight, OUTPUT);
+  pinMode(RelayTemp, OUTPUT);
+  pinMode(RelayPompa, OUTPUT);
+  
+  pinMode(MoistureOfSoilPin, INPUT);
+  
+  pinMode(buttonPinInfo, INPUT_PULLUP);
+  pinMode(buttonPinMode, INPUT_PULLUP);
+ 
+  digitalWrite(buttonPinInfo, HIGH);
+  digitalWrite(buttonPinMode, HIGH);
+//  lightOn();
+//  tempOn();
+  digitalWrite(ind1, HIGH);
 
-	// init dht
-	dht.begin();
-
-	// устанавливаем размер (количество столбцов и строк) экрана
-	lcd.begin(16, 2);
-
-	// init pins mode for sensors and indicators
-  pinMode(buttonPin, INPUT);
-
-  // main run functions
-  Welcome();
-  int arrPinsSensors[4] = {ldr, tempInPin, soilSensorPin, dht}
-  if(SysCheck(indGreenPin, indRedPin, arrPinsSensors)){
-  	// Next code
-  	indGreenOn();
-  } else{
-  	ERROR = true;
-	}
-
+  
+  Bbutton.attachDoubleClick(doubleBclick);
+  Bbutton.attachClick(Bclick);
+}
+void doubleBclick(){
+  static int m = LOW;
+  // reverse the LED 
+  m = !m;
+  Serial.println("Double Click!");
+}
+void Bclick(){
+  static int m = LOW;
+  // reverse the LED 
+  m = !m;
+  Serial.println("Click!");
 }
 
-int ModState = 0;
-void loop(){
-	if(ERROR){
-		indRedOn();
-		delay(500);
-		indRedOff();
-	}else{
-		main();
-	}
+int STATE = 0;
+int i = 0;
+String str = "";
 
-	// int buttonState = digitalRead(buttonPin);
+void loop() {
+    if (Serial.available() > 0) {
+        lcd.clear();
+        String str = Serial.readString();
+        Serial.println(str);
+        if (str == "Welcome" or str == "welcome"){
+          Welcome();
+        }
+        else if (str == "readSensors"){
+          printDataSensors(0);
+        }
+        else{
+          lcd.print(str);
+        }
+    }
+
+  Bbutton.tick();
+  delay(10);
 }
+
+  
+//Serial.println(17 / (int)round((float)analogRead(2) / 10.0) + 28);
+//delay(20);
+
+
