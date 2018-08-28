@@ -1,3 +1,5 @@
+// =========== _ Blue Button _ ===========
+
 void doubleBclick(){
 	// static int m = LOW;
 	// m = !m;
@@ -5,6 +7,7 @@ void doubleBclick(){
 	lcd.clear();
 	lcd.print("DoubleClick!");
 }
+
 void Bclick(){
 	Serial.println("Click!");
 	lcd.clear();
@@ -16,4 +19,12 @@ void Bclick(){
 
 void BLongPress(){
 	Welcome();
+}
+// =======================================
+
+
+// ========== _ Yellow Button _ ==========
+
+void Yclick(){
+	STATE_MODE = !STATE_MODE;
 }

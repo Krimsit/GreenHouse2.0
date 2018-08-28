@@ -14,10 +14,6 @@
 	0.2. Init vars for work with sensors and indicators
 */
 
-
-
-
-
 // Display init
 LiquidCrystal_SR lcd(6, 5, 9);
 
@@ -52,6 +48,8 @@ const int potPin 				= 2;		//Пин потециометра(крутилки)(A
 // Tempetature outside
 const int tempOutPin 		= -1;		//Пин датчика температуры снаружи теплицы
 
+// Configs
+bool STATE_MODE 				= false;//Состояние режима настроек
 
 
 // Попробовать перенести в начало дока (!)
@@ -97,14 +95,18 @@ void setup(){
 	// digitalWrite(indGreenPin, HIGH);
 
 
-	Bbutton.attachDoubleClick(doubleBclick);
 	Bbutton.attachClick(Bclick);
+	Bbutton.attachDoubleClick(doubleBclick);
 	Bbutton.attachLongPressStop(BLongPress);
+
+	Ybutton.attachClick(Yclick);
+	// Ybutton.attachDoubleClick(doubleBclick);
+	// Ybutton.attachLongPressStop(BLongPress);
 }
 
 
 String str = "";
-int iter_loop = 10; // not 0
+int iter_loop = 10; // not 0 or changed	(!)
 
 void loop() {
 	// lesten writing console (Serial)
@@ -124,9 +126,32 @@ void loop() {
 		}
 	}
 
-	// Каждые 3 секунды будет вызываться CycleShowInfo
-	if(!CycleShowInfo(5000, iter_loop)){
-		iter_loop = 0;
+	float arr[5] = {getValueSensors("tempIn"), getValueSensors("humAir"), getValueSensors("idr"), getValueSensors("humSoil"), 0};
+	/*
+		Функция CheckValuesSensors() будет возращать массив, где элементы 
+		будут равняться разнице между настроенной нормой и значением датчиков
+
+		float Diff = CheckValuesSensors(arr) => {3, 0, 300, -100, 0}
+
+		changeDifferenceForSettings(Diff) - предназначен для выполнения и стабилизации разницы значений датциков и норм
+			- Diff[0] - разница температур; вклчаем лампочку, пока разница не снизится до нуля
+			и тд.
+
+		
+
+	*/
+
+
+	if(STATE_MODE){
+		// Settings
+		lcd.clear();
+		lcd.print("Settings");
+	}
+	else{
+		// Каждые 3 секунды будет вызываться CycleShowInfo
+		if(!CycleShowInfo(5000, iter_loop)){
+			iter_loop = 0;
+		}
 	}
 	
 
