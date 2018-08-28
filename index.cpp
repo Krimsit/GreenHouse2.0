@@ -31,6 +31,7 @@ int ind1 = 13;
 #include <OneButton.h>
 
 OneButton Bbutton(buttonPinInfo, true);
+OneButton Ybutton(buttonPinMode, true);
 
 
 void setup(){
@@ -59,18 +60,28 @@ void setup(){
   
   Bbutton.attachDoubleClick(doubleBclick);
   Bbutton.attachClick(Bclick);
+  Bbutton.attachLongPressStop(BLongPressSt);
 }
 void doubleBclick(){
   static int m = LOW;
   // reverse the LED 
   m = !m;
   Serial.println("Double Click!");
+  lcd.clear();
+  lcd.print("DoubleClick!");
 }
 void Bclick(){
   static int m = LOW;
   // reverse the LED 
   m = !m;
   Serial.println("Click!");
+  lcd.clear();
+  lcd.print("Click!");
+}
+
+
+void BLongPressSt(){
+  Welcome();
 }
 
 int STATE = 0;
@@ -92,13 +103,17 @@ void loop() {
           lcd.print(str);
         }
     }
-
+  
   Bbutton.tick();
+  
+  int potMin = 20;
+  int potMax = 35;
+//  Serial.println( potMin + (float)round((float)analogRead(2) / 10.24) / 100.0 * (potMax - potMin) );
   delay(10);
 }
 
   
-//Serial.println(17 / (int)round((float)analogRead(2) / 10.0) + 28);
+
 //delay(20);
 
 
