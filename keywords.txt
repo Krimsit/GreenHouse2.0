@@ -8,7 +8,7 @@
 	//value - значение датчиков
 
 	setHumidityOnDisplay(int value);
-	setHumidityOnDisplay(int value);
+	setTempOnDisplay(int value);
 	setIdrOnDisplay(int value);
 	setSoilHumidityOnDisplay(int value);
 
@@ -17,6 +17,12 @@
 	//state (default = 0)
 	printDataSensors(int state);
 
+	# getValueSensors - возращает значение сенсоров
+		- tempIn
+		- humAir
+		- idr
+		- humSoil
+	getValueSensors(String sensor_type);
 
 	//state => HIGH - включить; LOW - Выключить;
 

@@ -38,17 +38,48 @@ void indRedToggle(bool state){
 }
 
 void printDataSensors(int state){
-	float h = dht.readHumidity();
-	float t = dht.readTemperature();
-	float At = -273.0;
-	float x = (float)analogRead(Idr)/1024.0*100;
-	float soilSensorValue = (float)analogRead(soilSensorPin)/1024.0*100;
+	float h = getValueSensors("humAir");
+	float t = getValueSensors("tempIn");
+	// float At = -273.0;
+	float idr = getValueSensors("idr");
+	float soilSensorValue = getValueSensors("humSoil");
 
 	if(state == 0){
 		Serial.println(h);
 		Serial.println(t);
-		Serial.println(At);
-		Serial.println(x);
+		Serial.println(idr);
 		Serial.println(soilSensorValue);  
 	}
+}
+
+float getValueSensors(String sensor_type){
+	if(sensor_type == "tempIn") return dht.readHumidity();
+	else if (sensor_type == "humAir") return dht.readHumidity();
+	else if (sensor_type == "idr") return (float)analogRead(Idr)/1024.0*100;
+	else if (sensor_type == "humSoil") return (float)analogRead(soilSensorPin)/1024.0*100;
+	else return -1;
+}
+
+void CycleShowInfo(int time_change_info, int iter_loop){
+	// time_change_info - in milliseconds
+	if( iter_loop % time_change_info == 0 ){
+		switch(iter_loop / time_change_info){
+			case 1: 
+				setHumidityOnDisplay(getValueSensors("humAir"));break;
+				return HIGH;
+			case 2:
+				setTempOnDisplay(getValueSensors("tempIn"));break;
+				return HIGH;
+			case 3:
+				setIdrOnDisplay(getValueSensors("idr"));break;
+				return HIGH;
+			case 4: 
+				setSoilHumidityOnDisplay("humSoil");break;
+				return HIGH;
+			default: 
+				return LOW;
+		}
+		// change info
+	}
+
 }

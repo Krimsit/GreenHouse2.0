@@ -104,7 +104,7 @@ void setup(){
 
 
 String str = "";
-int iter_loop = 0;
+int iter_loop = 10; // not 0
 
 void loop() {
 	// lesten writing console (Serial)
@@ -123,12 +123,12 @@ void loop() {
 			lcd.print(str);
 		}
 	}
-	// Каждые 3 секунды будет вызываться if
-	if( iter_loop % 3000 == 0 ){
-		
-		// change info
-	}
 
+	// Каждые 3 секунды будет вызываться CycleShowInfo
+	if(!CycleShowInfo(5000, iter_loop)){
+		iter_loop = 0;
+	}
+	
 
 
 	Bbutton.tick();
