@@ -43,4 +43,18 @@ void Welcome(){
 
   delay(3000);
   lcd.clear();
+  
+    switch(iter_loop / 5000){
+      case 0:
+        setHumidityOnDisplay(getValueSensors("humAir"));break;
+      case 1:
+        setTempOnDisplay(getValueSensors("tempIn"));break;
+      case 2:
+        setIdrOnDisplay(getValueSensors("idr"));break;
+      case 3: 
+        setSoilHumidityOnDisplay(getValueSensors("humSoil"));break;
+      default:
+      iter_loop = 0;
+    }
+
 }

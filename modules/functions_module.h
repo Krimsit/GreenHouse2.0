@@ -62,32 +62,61 @@ void printDataSensors(int state){
 
 bool CycleShowInfo(int time_change_info, int iter_loop){
 	// time_change_info - in milliseconds
-	if( iter_loop % time_change_info == 0 ){
+	if( iter_loop % 1000 == 0 ){
+		lcd.clear();
 		switch(iter_loop / time_change_info){
-			case 1: 
+			case 0: 
 				setHumidityOnDisplay(getValueSensors("humAir"));break;
 				return HIGH;
+			case 1:
+				lcd.clear();setTempOnDisplay(getValueSensors("tempIn"));break;
+				return HIGH;
 			case 2:
-				setTempOnDisplay(getValueSensors("tempIn"));break;
+				lcd.clear();setIdrOnDisplay(getValueSensors("idr"));break;
 				return HIGH;
-			case 3:
-				setIdrOnDisplay(getValueSensors("idr"));break;
-				return HIGH;
-			case 4: 
-				setSoilHumidityOnDisplay(getValueSensors("humSoil"));break;
+			case 3: 
+				lcd.clear();setSoilHumidityOnDisplay(getValueSensors("humSoil"));break;
 				return HIGH;
 			default: 
 				return LOW;
 		}
-		// change info
 	}
-	else{
-		return HIGH;
-	}
-
 }
 
-void Settings(){
+void Settings(String mode){
 	lcd.home();
-	lcd.print("Settings: ");
+	potMin = 0;
+	potMax = 100;
+	if(mode == "temp"){
+		potMin = 24;
+		potMax = 32;
+		lcd.print("Settings temp:");
+		lcd.setCursor(0, 1);
+		lcd.print(NORMS[0]);
+		lcd.setCursor(13, 1);
+		lcd.print(valuePot);
+ 	}	
+
+	else if(mode == "humAir"){
+		lcd.print("Settings humAir:");
+		lcd.setCursor(0, 1);
+		lcd.print(NORMS[1]);
+		lcd.setCursor(13, 1);
+		lcd.print(valuePot);
+ 	}
+ 	else if(mode == "Idr"){
+ 		lcd.print("Settings Idr:");
+		lcd.setCursor(0, 1);
+		lcd.print(NORMS[2]);
+		lcd.setCursor(13, 1);
+		lcd.print(valuePot);
+ 	}
+ 	else if(mode == "humSoil"){
+ 		lcd.print("Settings humSoil:");
+		lcd.setCursor(0, 1);
+		lcd.print(NORMS[3]);
+		lcd.setCursor(13, 1);
+		lcd.print(valuePot);
+ 	}
+
 }

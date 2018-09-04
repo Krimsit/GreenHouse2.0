@@ -1,10 +1,11 @@
 // Вывод на дисплэй значения с датчиков
 
 void setHumidityOnDisplay(int h){
-  lcd.clear();
+  //lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Humidity: ");
-  lcd.setCursor(14, 0);
+
+  lcd.setCursor(16-String(h).length(), 0);
   lcd.print(h);
 
   lcd.setCursor(0, 1);
@@ -14,21 +15,21 @@ void setHumidityOnDisplay(int h){
     lcd.setCursor(12, 1);
     lcd.print(" MIN");
   }
-  else if(h > 40 && h < 60){
+  else if(h >= 40 && h < 60){
     lcd.setCursor(12, 1);
     lcd.print("NORM");
   }
-  else if(h > 60){
+  else if(h >= 60){
     lcd.setCursor(12, 1);
     lcd.print(" MAX");
   }
 }
 
 void setTempOnDisplay(int h){
-  lcd.clear();
+  //lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Temperature: ");
-  lcd.setCursor(14, 0);
+  lcd.setCursor(16-String(h).length(), 0);
   lcd.print(h);
 
  lcd.setCursor(0, 1);
@@ -49,10 +50,10 @@ void setTempOnDisplay(int h){
 }
 
 void setIdrOnDisplay(int h){
-lcd.clear();
+//lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Ill-tion:  ");
-  lcd.setCursor(13, 0);
+  lcd.setCursor(16-String(h).length(), 0);
   lcd.print(h);
 
   lcd.setCursor(0, 1);
@@ -74,10 +75,10 @@ lcd.clear();
 
 //Влажность почвы
 void setSoilHumidityOnDisplay(int h){
-lcd.clear();
+//lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("SoilHum-ty: ");
-  lcd.setCursor(13, 0);
+  lcd.setCursor(16-String(h).length(), 0);
   lcd.print(h);
 
   lcd.setCursor(0, 1);
