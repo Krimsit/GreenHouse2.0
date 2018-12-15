@@ -1,35 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import io from 'socket.io-client';
-import { Line } from 'react-chartjs-2';
+import LineChart from './components/LineChart/LineChart';
 
 var socket = io('192.168.0.138:9000');
 
-class Temp extends React.Component {
+class HumSoil extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: { 
-        labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-        datasets: [{
-        label: "Temperature",
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: [0, 10, 5, 2, 20, 30, 45],
-        }]
-      }
+      data: [
+        { key: 'Idr', values: [ { x: 'A', y: 23 } ] }
+      ],
+      iter: 0
     };
   };
 
-  componentWillMount() {
-
+  componentDidMount() {
+    var _arr = this.state.data;
+    var _iter = this.state.iter;
+    console.log(_arr);
+    
+    var self = this;
+    socket.on("tmp", function(data){
+      console.log(data.data);
+      _arr[0].values.push({x: _iter, y: data.data});
+      _iter++;
+      self.setState({data: _arr, iter: _iter});
+    });
+    console.log(this.state);
   }
 
   render() {
     return(
-      <div>HumSoil</div>
+      <LineChart 
+        data={this.state.data}
+      />
     )
   }
 }
 
-export default Temp;
+export default HumSoil;
