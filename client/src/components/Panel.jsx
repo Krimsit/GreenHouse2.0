@@ -10,6 +10,10 @@ class Panel extends React.Component {
     this.state = {
       main_list: [
         {
+          name: "Welcome",
+          list: ["Введение", "Manual", "Наша тима"]
+        },
+        {
           name: "Графики",
           list: ["График освещенности", "График температуры", "График Влажности воздуха", "График Влажности Почвы"]
         },
@@ -23,7 +27,7 @@ class Panel extends React.Component {
         },
         {
           name: "#OurFeatures",
-          list: ["First Start", "OurTeam", "News"]
+          list: ["News", "features"]
         }
       ],
       activeSubMenu: [-1, -1],
@@ -36,13 +40,13 @@ class Panel extends React.Component {
       let _hash = hash.substr(1, hash.length-1)
       switch(_hash){
         case "G_Idr":
-          this.setState({activeSubMenu: [0, 0]});
+          this.setState({activeSubMenu: [1, 0]});
           ee.emit("navigate", {payload: "Idr"});break;
         case "G_Temp":
-          this.setState({activeSubMenu: [0, 1]});
+          this.setState({activeSubMenu: [1, 1]});
           ee.emit("navigate", {payload: "Temp"});break;
         case "Controls":
-          this.setState({activeSubMenu: [1, 0]});
+          this.setState({activeSubMenu: [2, 0]});
           ee.emit("navigate", {payload: "Controls"});break;
       }
     }
@@ -58,6 +62,12 @@ class Panel extends React.Component {
       case 0:
         switch(j){
           case 0:
+            ee.emit("navigate", {payload: "Introduction"});
+            window.location.hash = "Introduction";break;
+        };break
+      case 1:
+        switch(j){
+          case 0:
             ee.emit("navigate", {payload: "Idr"});
             window.location.hash = "G_Idr";
             break;
@@ -66,7 +76,7 @@ class Panel extends React.Component {
             window.location.hash = "G_Temp";
             break;
         };break;
-      case 1:
+      case 2:
         window.location.hash = "Controls";
         ee.emit("navigate", {payload: "Controls"});break
     }

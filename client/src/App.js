@@ -5,6 +5,9 @@ import io from 'socket.io-client';
 import Panel from './components/Panel.jsx';
 import Charts from './components/Charts.jsx';
 import Controls from './components/controls/Colntrols.jsx';
+import Welcome from './components/welcome.jsx';
+
+
 import ee from "./events/ee.js";
 
 
@@ -34,6 +37,8 @@ class App extends React.Component {
     		case "Temp":
     			socket.emit("change_get_data", {type: data.payload, payload: 1});
     			self.setState({active: "Chart"});break;
+    		case "Introduction":
+    			self.setState({active: "Introduction"});break;
     	}
 
     })
@@ -60,6 +65,8 @@ class App extends React.Component {
 							return <Charts />
 						case "Controls":
 							return <Controls/>
+						case "Introduction":
+							return <Welcome text={"Введение"}/>
 					}
         })()}
        

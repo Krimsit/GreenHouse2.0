@@ -169,7 +169,6 @@ i.play_chart{
 .controls .main_control{
 	width: 400px;
 	height: 500px;
-	background-color: red;
 }
 .controls .main_control .item_main_control{
 	height: 33.333%;
