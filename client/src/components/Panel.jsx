@@ -41,6 +41,9 @@ class Panel extends React.Component {
         case "G_Temp":
           this.setState({activeSubMenu: [0, 1]});
           ee.emit("navigate", {payload: "Temp"});break;
+        case "Controls":
+          this.setState({activeSubMenu: [1, 0]});
+          ee.emit("navigate", {payload: "Controls"});break;
       }
     }
   }
@@ -63,6 +66,9 @@ class Panel extends React.Component {
             window.location.hash = "G_Temp";
             break;
         };break;
+      case 1:
+        window.location.hash = "Controls";
+        ee.emit("navigate", {payload: "Controls"});break
     }
     if(j != this.state.activeSubMenu[1]){
       this.setState({activeSubMenu: [this.state.activeSubMenu[0], j]})

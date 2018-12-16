@@ -149,3 +149,49 @@ i.play_chart{
 	line-height: 100px;
 	/*float: left;*/
 }
+/* 
+	Controls
+ */
+.controls{
+	width: 72%;
+	height: calc(100vh - 30px);
+	padding: 15px 30px;
+	float: left;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	-ms-align-items: center;
+	align-items: center;
+	justify-content: center;
+}
+.controls .main_control{
+	width: 400px;
+	height: 500px;
+	background-color: red;
+}
+.controls .main_control .item_main_control{
+	height: 33.333%;
+	width: 100%;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	-ms-align-items: center;
+	align-items: center;
+	justify-content: center;
+}
+.controls .main_control .item_main_control span{
+	margin-right: 10px;
+}
+.controls .main_control .item_main_control.light{
+	background-color: #dbcb0e;
+}
+.controls .main_control .item_main_control.temp{
+	background-color: #c10a0a;
+}
+.controls .main_control .item_main_control.pomp{
+	background-color: #0e9bd1;
+}

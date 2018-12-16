@@ -65,21 +65,21 @@ class Idr extends React.Component {
     }
     // Min
     data[1].values[0].x = start;
-    data[1].values[1].x = finish;
+    data[1].values[1].x = finish-1;
 
     data[1].values[0].y = statis._min;
     data[1].values[1].y = statis._min
     // Middle
 
     data[2].values[0].x = start;
-    data[2].values[1].x = finish;
+    data[2].values[1].x = finish-1;
 
     data[2].values[0].y = statis._middle;
     data[2].values[1].y = statis._middle;
 
     // Max
     data[3].values[0].x = start;
-    data[3].values[1].x = finish;
+    data[3].values[1].x = finish-1;
 
     data[3].values[0].y = statis._max;
     data[3].values[1].y = statis._max;

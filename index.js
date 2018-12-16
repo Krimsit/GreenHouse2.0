@@ -46,7 +46,6 @@ serialPort.on("open", function(){
 					bin_int[0] = 1;
 					let _str = bin_int.join('');
 					let ans = parseInt(_str, 2);
-					console.log(bin_int, _str, ans);
 					serialPort.write(ans + "\n");
 				}break;
 				case "Temp":
@@ -57,8 +56,42 @@ serialPort.on("open", function(){
 					bin_int[1] = 1;
 					let _str = bin_int.join('');
 					let ans = parseInt(_str, 2);
-					console.log(bin_int, _str, ans);
 					serialPort.write(ans + "\n");break;
+			}
+		})
+
+		socket.on("control", data => {
+			switch(data.type){
+				case "light": {
+					_mode_control = 0;
+					let bin_int = [
+						0,0,0,0,0,0,0
+					];
+					bin_int[4] = 1;
+					let _str = bin_int.join('');
+					let ans = parseInt(_str, 2);
+					serialPort.write(ans + "\n");
+				};break
+				case "temp": {
+					_mode_control = 1;
+					let bin_int = [
+						0,0,0,0,0,0,0
+					];
+					bin_int[5] = 1;
+					let _str = bin_int.join('');
+					let ans = parseInt(_str, 2);
+					serialPort.write(ans + "\n");
+				};break;
+				case "pomp": {
+					_mode_control = 2;
+					let bin_int = [
+						0,0,0,0,0,0,0
+					];
+					bin_int[6] = 1;
+					let _str = bin_int.join('');
+					let ans = parseInt(_str, 2);
+					serialPort.write(ans + "\n");
+				};break
 			}
 		})
 	});
