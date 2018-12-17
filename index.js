@@ -5,10 +5,42 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require("socket.io")(http);
+var fs = require("fs");
+
+const path_NORMS = "./NORMS.json"
+
+// var NORMS = fs.readFile("./NORMS.json", "utf-8", (err, data) => {
+// 	if(err) console.log(err);
+// 	return JSON.parse(data).NORMS;
+// });
+
+var NORMS = JSON.parse(fs.readFileSync(path_NORMS, "utf-8")).NORMS;
+var AutoMode = false;
+var light = false;
+/*
+	{
+	"NORMS": {
+		"Idr": 30,
+		"Temp": 26,
+		"HumAir": 60,
+		"HumSoil": 80
+	}
+}
+*/
+var changeNORMS = data => {
+	NORMS[Object.keys(data)[0]] = data[Object.keys(data)[0]];
+	// console.log(NORMS);
+	let _str = JSON.stringify({NORMS: NORMS});
+	// console.log(_str);
+	console.log("Change Data");
+	fs.writeFileSync(path_NORMS, _str, err => {
+		if(err) console.log("Проблемы с записью информации в файл");
+	})
+};
 
 
 var SerialPort = require('serialport');
-var serialPort = new SerialPort("COM3", {
+var serialPort = new SerialPort("COM5", {
 	baudRate: 250000,
 });
 
@@ -16,13 +48,24 @@ var _mode_sensors = 0;
 
 serialPort.on("open", function(){
 	io.on("connection", function(socket){
+		socket.emit("INIT", {type: "NORMS", payload: NORMS});
 		var i = 0;
 		serialPort.on("data", function(data){
 			try{
-				console.log(JSON.parse(data.toString('utf8')));
+				// console.log(JSON.parse(data.toString('utf8')));
 				switch(_mode_sensors){
-					case 0:
-						socket.emit("GET_DATA", {type: "Idr", payload: JSON.parse(data.toString('utf8'))});break;
+					case 0:{
+						let value = JSON.parse(data.toString('utf8'));
+						console.log(AutoMode, value, NORMS.Idr, (NORMS.Idr - value) / NORMS.Idr, !light);
+						if (AutoMode && value < NORMS.Idr && ((NORMS.Idr - value) / NORMS.Idr  > 0.1) && !light){
+							serialPort.write(128 + "\n");
+						}
+						else{
+							serialPort.write(256 + "\n");
+						}
+						
+						socket.emit("GET_DATA", {type: "Idr", payload: value});
+					}break;
 					case 1:
 						socket.emit("GET_DATA", {type: "Temp", payload: JSON.parse(data.toString('utf8'))});break;
 				}
@@ -94,6 +137,18 @@ serialPort.on("open", function(){
 				};break
 			}
 		})
+		socket.on('changeNORMS', (data) => {
+			changeNORMS({ Idr: data.Idr })
+			changeNORMS({ Temp: data.Temp })
+			changeNORMS({ HumSoil: data.HumSoil })
+			changeNORMS({ HumAir: data.HumAir })
+		});
+		socket.on("autoMode", data => {
+			AutoMode = data.payload;
+		});
+	});
+	io.on("disconnect", socket => {
+		console.log("Disconnect");
 	});
 });
 
@@ -115,11 +170,5 @@ app.get('/', function(req, res){
 
 http.listen(9000, function(){
   console.log('listening on *:9000');
+  console.log(NORMS);
 });
-
-/*
-	1. Сбор данных
-		а. Каждую минуту компануется пакет из 4 (основа), 
-	2. Панель упарвления
-		а. 
-*/
