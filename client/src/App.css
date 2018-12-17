@@ -1,0 +1,18 @@
+.team_container {
+	margin: 20px;
+}
+.team_container .contributor {
+	padding-left: 20px;
+	font-size: 25px;
+}
+.team_container .contributor .team_name {
+
+}
+
+.team_container .contributor .team_name span {
+	color: #333;
+}
+
+.team_container .contributor .team_link{
+
+}

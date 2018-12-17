@@ -64,6 +64,12 @@ class Panel extends React.Component {
           case 0:
             ee.emit("navigate", {payload: "Introduction"});
             window.location.hash = "Introduction";break;
+          case 1:
+            ee.emit("navigate", {payload: "Manual"});
+            window.location.hash = "Manual";break;
+          case 2:
+            ee.emit("navigate", {payload: "Team"});
+            window.location.hash = "Team";break;
         };break
       case 1:
         switch(j){
