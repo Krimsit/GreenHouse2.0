@@ -92,28 +92,50 @@ class App extends React.Component {
 						case "Controls":
 							return <Controls/>
 						case "Introduction":
-							return <Welcome text={<p>Добро пожаловать! <br/> Мы представляем вам программное обеспечение для умной теплицы 'SmartGreenHouse 2.0'</p>}/>
+							return <Welcome text={<p className="introdaction" style={{width: "73%", float: "right"}}>
+                        <h1>Добро пожаловать!</h1>
+                        <h2 className="name">SmartGreenHouse 2.0</h2>
+                        <p>Мы представляем вам программное обеспечение для умной теплицы 'SmartGreenHouse2.0'.Теперь вы можете управлять теплицей через наше приложение!</p>
+                        <h2>Возможности</h2>
+                        <p>Вы можете выстроить нормы, включать и выключать датчики. 
+                        А самое главное вы можете просмотреть статистику каждого датчика, а так же полную статистику!</p>
+                        </p>
+                      }/>
             case "Manual":
-              return <Welcome text={<p>Ссылка на скачивание инструкции по управлению умной теплицей <br /> <a target="_blank" href="https://github.com/Krimsit/GreenHouse2.0/blob/dev/User_Manual.pdf">Инструкция</a></p>}/>
+              return <Welcome text={<p className="manual" style={{width: "73%", float: "right"}}>
+                        <h1>Инструкция</h1>
+                        <p>Ссылка на скачивание инструкции по управлению умной теплицей: </p>
+                        <p><a target="_blank" href="https://github.com/Krimsit/GreenHouse2.0/blob/dev/User_Manual.pdf">
+                          Инструкция
+                        </a></p>
+                        </p>
+                      }/>
             case "Team":
               return <Welcome text={<div className="team_container" style={{width: "73%", float: "right"}}>
+                                      <h1>Наша тима</h1>
                                       <div className="contributor">
-                                        <p className="team_name">Шенягин Даниил, Автор проекта<ul>
-                                          <li>занимается серверной частью</li>
-                                        </ul></p>
-                                        <a className="team_link" target="_blank" href="https://vk.com/daniil00t"><i className="fab fa-vk"></i></a>
+                                        <p className="team_name">Шенягин Даниил<span>//Автор проекта</span>
+                                          <ul>
+                                            <li>занимается серверной частью</li>
+                                          </ul>
+                                        </p>
+                                        <p><a className="team_link" target="_blank" href="https://vk.com/daniil00t"><i className="fab fa-vk"></i></a></p>
                                       </div><br/>
                                       <div className="contributor">
-                                        <p className="team_name">Субботин Андрей<ul>
-                                          <li>занимается клиентской частью</li>
-                                        </ul></p>
-                                        <a className="team_link" target="_blank" href="https://vk.com/krimsit"><i className="fab fa-vk"></i></a>
+                                        <p className="team_name">Субботин Андрей
+                                          <ul>
+                                            <li>занимается клиентской частью</li>
+                                          </ul>
+                                        </p>
+                                        <p><a className="team_link" target="_blank" href="https://vk.com/krimsit"><i className="fab fa-vk"></i></a></p>
                                       </div><br/>
                                       <div className="contributor">
-                                        <p className="team_name">Лукьянов Андрей<ul>
-                                          <li>помогает Шенягину Даниилу</li>
-                                        </ul></p>
-                                        <a className="team_link" target="_blank" href="https://vk.com/andrey_luk"><i className="fab fa-vk"></i></a>
+                                        <p className="team_name">Лукьянов Андрей 
+                                          <ul>
+                                            <li>помогает Шенягину Даниилу</li>
+                                          </ul>
+                                        </p>
+                                        <p><a className="team_link" target="_blank" href="https://vk.com/andrey_luk"><i className="fab fa-vk"></i></a></p>
                                       </div>
                                     </div>}/>
 					}

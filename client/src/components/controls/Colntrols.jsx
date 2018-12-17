@@ -104,9 +104,8 @@ class Control extends React.Component{
 						<button className="button" onClick={this.handleChange.bind(this)}>Отправить</button>							
 					</div>
 				</div>
-				<hr/>
 				<div className="auto">
-					<p>Автономный режим: <input onChange={this.handleAutoMode.bind(this)} type="checkbox"/></p>
+					<p>Автономный режим: <input className="btn_auto" onChange={this.handleAutoMode.bind(this)} type="checkbox"/></p>
 				</div>
 			</div>
 		);

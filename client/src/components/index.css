@@ -160,7 +160,7 @@ i.play_chart{
 }
 .controls .control_panel {
 	width: 72%;
-	height: calc(100vh - 350px);
+	height: calc(100vh - 135px);
 	padding: 15px 30px;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -223,4 +223,9 @@ i.play_chart{
 	background-color: #333;
 	border: 0px;
 	cursor: pointer;
+}
+.controls .auto {
+	text-align: center;
+	border-top: 1px solid #000;
+	font-size: 24px;
 }

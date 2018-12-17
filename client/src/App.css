@@ -1,18 +1,107 @@
+.introdaction h1 {
+	color: #000;
+	font-family: 'Cormorant Garamond';
+	border-bottom: 3px solid #e66c7e;
+	font-size: 48px;
+	font-weight: 400;
+	line-height: 72px;
+	letter-spacing: 35px;
+	text-align: center;
+	text-indent: 24px;
+	text-transform: uppercase;
+}
+.introdaction p {
+	color: #000;
+	font-family: 'Cormorant Garamond';
+	font-size: 28px;
+	font-weight: 400;
+	line-height: 48px;
+	max-width: 640px;
+	margin: 0 auto 40px;
+	text-align: center;
+}
+.introdaction h2 {
+	color: #000;
+	font-family: 'Cormorant Garamond';
+	font-size: 24px;
+	font-weight: 400;
+	line-height: 72px;
+	letter-spacing: 5px;
+	text-align: center;
+	text-indent: 24px;
+	text-transform: uppercase;
+}
+
+.manual h1 {
+	color: #000;
+	font-family: 'Cormorant Garamond';
+	border-bottom: 3px solid #e66c7e;
+	font-size: 48px;
+	font-weight: 400;
+	line-height: 72px;
+	letter-spacing: 35px;
+	text-align: center;
+	text-indent: 24px;
+	text-transform: uppercase;
+}
+.manual p {
+	color: #000;
+	font-family: 'Cormorant Garamond';
+	font-size: 28px;
+	font-weight: 400;
+	line-height: 48px;
+	max-width: 640px;
+	margin: 0 auto 40px;
+	text-align: center;
+}
+.manual a {
+	color: #000;	
+	border-bottom: 2px solid #000;
+	font-family: 'Cormorant Garamond';
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: 3px;
+	text-decoration: none;
+	text-transform: uppercase;
+	text-align: center;
+}
+.manual a:hover {
+	color: #e66c7e;
+	border-bottom: 2px solid #e66c7e;
+}
+
+.team_container h1 {
+	color: #000;
+	font-family: 'Cormorant Garamond';
+	border-bottom: 3px solid #e66c7e;
+	font-size: 48px;
+	font-weight: 400;
+	line-height: 72px;
+	letter-spacing: 35px;
+	text-align: center;
+	text-indent: 24px;
+	text-transform: uppercase;
+}
 .team_container {
 	margin: 20px;
+	text-align: center;
 }
 .team_container .contributor {
 	padding-left: 20px;
 	font-size: 25px;
 }
-.team_container .contributor .team_name {
-
+.team_container .contributor .team_name span{
+	font-size: 16px;
+	color: #e66c7e;
 }
-
-.team_container .contributor .team_name span {
-	color: #333;
+.team_container .contributor .team_name ul {
+	list-style-type: none;
 }
-
 .team_container .contributor .team_link{
-
+	color: #000;
+	border-bottom: 2px solid #000;	
+}
+.team_container .contributor .team_link:hover{
+	color: #e66c7e;
+	border-bottom: 2px solid #e66c7e;
 }
